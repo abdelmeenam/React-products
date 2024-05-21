@@ -10,6 +10,10 @@
     "module": "ESNext",
     "skipLibCheck": true,
     "baseUrl": ".",
+
+    //check tsx files
+    "allowJs": true,
+
     "paths": {
       "@/*": [
         "./src/*"
