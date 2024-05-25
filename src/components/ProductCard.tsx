@@ -10,6 +10,8 @@ interface IProductCard {
   open: boolean;
   setOpen: (value: boolean) => void;
   setSelectedProduct: (product: IProduct) => void;
+  setSelectedProductIndex: (index: number) => void;
+  productIdx: number;
 }
 
 export const ProductCard = ({
@@ -17,6 +19,8 @@ export const ProductCard = ({
   open,
   setOpen,
   setSelectedProduct,
+  setSelectedProductIndex,
+  productIdx,
 }: IProductCard) => {
   return (
     <div key={product.id} className="space-y-3 rounded-lg border p-3">
@@ -38,6 +42,8 @@ export const ProductCard = ({
         setOpen={setOpen}
         product={product}
         setSelectedProduct={setSelectedProduct}
+        setSelectedProductIndex={setSelectedProductIndex}
+        productIdx={productIdx}
       />
     </div>
   );

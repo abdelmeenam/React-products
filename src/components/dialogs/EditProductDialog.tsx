@@ -26,6 +26,9 @@ interface IProps {
   setOpen: (value: boolean) => void;
   selectedproduct: IProduct;
   setSelectedProduct: (product: IProduct) => void;
+  selectedproductIndex: number;
+  productList: IProduct[];
+  setProductList: (value: IProduct[]) => void;
 }
 
 export const EditProductDialog = ({
@@ -33,7 +36,17 @@ export const EditProductDialog = ({
   setOpen,
   selectedproduct,
   setSelectedProduct,
+  productList,
+  selectedproductIndex,
+  setProductList,
 }: IProps) => {
+  const onSaveChanges = () => {
+    const updatedProductList = [...productList];
+    updatedProductList[selectedproductIndex] = selectedproduct;
+    setProductList(updatedProductList);
+    setOpen(!open);
+  };
+
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       {/* <DialogTrigger asChild>
@@ -72,6 +85,12 @@ export const EditProductDialog = ({
               id="imageUrl"
               className="col-span-3"
               name="imageUrl"
+              onChange={(e) =>
+                setSelectedProduct({
+                  ...selectedproduct,
+                  imageUrl: e.target.value,
+                })
+              }
             />
           </div>
 
@@ -84,6 +103,12 @@ export const EditProductDialog = ({
               id="price"
               className="col-span-3"
               name="price"
+              onChange={(e) =>
+                setSelectedProduct({
+                  ...selectedproduct,
+                  price: e.target.value,
+                })
+              }
             />
           </div>
 
@@ -112,11 +137,19 @@ export const EditProductDialog = ({
               className="col-span-3"
               name="description"
               value={selectedproduct.description}
+              onChange={(e) =>
+                setSelectedProduct({
+                  ...selectedproduct,
+                  description: e.target.value,
+                })
+              }
             />
           </div>
         </div>
         <DialogFooter>
-          <Button type="submit">Save changes</Button>
+          <Button type="submit" onClick={onSaveChanges}>
+            Save changes
+          </Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>

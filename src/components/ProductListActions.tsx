@@ -6,6 +6,8 @@ interface ProductListActionsProps {
   setOpen: (value: boolean) => void;
   product: IProduct;
   setSelectedProduct: (product: IProduct) => void;
+  setSelectedProductIndex: (index: number) => void;
+  productIdx: number;
 }
 
 export const ProductListActions = ({
@@ -13,10 +15,15 @@ export const ProductListActions = ({
   setOpen,
   product,
   setSelectedProduct,
+  setSelectedProductIndex,
+  productIdx,
 }: ProductListActionsProps) => {
   const onEdit = () => {
     setSelectedProduct(product);
     setOpen(!open);
+
+    // set the selected product index
+    setSelectedProductIndex(productIdx);
   };
 
   return (
