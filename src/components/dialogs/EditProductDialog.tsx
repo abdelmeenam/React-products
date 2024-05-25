@@ -19,13 +19,21 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "../ui/textarea";
+import { IProduct } from "@/interfaces";
 
 interface IProps {
   open: boolean;
   setOpen: (value: boolean) => void;
+  selectedproduct: IProduct;
+  setSelectedProduct: (product: IProduct) => void;
 }
 
-export const EditProductDialog = ({ open, setOpen }: IProps) => {
+export const EditProductDialog = ({
+  open,
+  setOpen,
+  selectedproduct,
+  setSelectedProduct,
+}: IProps) => {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       {/* <DialogTrigger asChild>
@@ -41,21 +49,42 @@ export const EditProductDialog = ({ open, setOpen }: IProps) => {
             <Label htmlFor="name" className="text-right">
               Tile
             </Label>
-            <Input id="name" className="col-span-3" name="name" />
+            <Input
+              value={selectedproduct.title}
+              id="title"
+              className="col-span-3"
+              name="title"
+              onChange={(e) =>
+                setSelectedProduct({
+                  ...selectedproduct,
+                  title: e.target.value,
+                })
+              }
+            />
           </div>
 
           <div className="gap-4 space-y-1">
             <Label htmlFor="imageUrl" className="text-right">
               Image Url
             </Label>
-            <Input id="imageUrl" className="col-span-3" name="imageUrl" />
+            <Input
+              value={selectedproduct.imageUrl}
+              id="imageUrl"
+              className="col-span-3"
+              name="imageUrl"
+            />
           </div>
 
           <div className="gap-4 space-y-1">
             <Label htmlFor="price" className="text-right">
               Price
             </Label>
-            <Input id="price" className="col-span-3" name="price" />
+            <Input
+              value={selectedproduct.price}
+              id="price"
+              className="col-span-3"
+              name="price"
+            />
           </div>
 
           <div className="flex-1 gap-4 space-y-1">
@@ -82,6 +111,7 @@ export const EditProductDialog = ({ open, setOpen }: IProps) => {
               id="Description"
               className="col-span-3"
               name="description"
+              value={selectedproduct.description}
             />
           </div>
         </div>
@@ -92,6 +122,3 @@ export const EditProductDialog = ({ open, setOpen }: IProps) => {
     </Dialog>
   );
 };
-function useState(arg0: boolean): [any, any] {
-  throw new Error("Function not implemented.");
-}

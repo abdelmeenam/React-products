@@ -9,9 +9,10 @@ import { faker } from '@faker-js/faker';
 const PRODUCT_LENGTH = 15;
 const fakeProductList:IProduct[] = Array.from({ length: PRODUCT_LENGTH }, () => ({
 id: faker.string.uuid(),
-  name: faker.commerce.productName(),
-  description: faker.commerce.productDescription(),
+  title: faker.commerce.productName(),
+  imageUrl: faker.image.url(),
   price: faker.commerce.price(),
+  description: faker.commerce.productDescription(),
 }));
 
 export default fakeProductList;
