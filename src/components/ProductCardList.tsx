@@ -26,6 +26,8 @@ export const ProductCardList = () => {
               setOpen={setOpen}
               setSelectedProduct={setSelectedProduct}
               setSelectedProductIndex={setSelectedProductIndex}
+              productList = {productList}
+              setProductList = {setProductList}
               productIdx={idx}
             />
           ))}

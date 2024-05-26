@@ -12,6 +12,8 @@ interface IProductCard {
   setSelectedProduct: (product: IProduct) => void;
   setSelectedProductIndex: (index: number) => void;
   productIdx: number;
+  productList: IProduct[];
+  setProductList: (productList: IProduct[]) => void;
 }
 
 export const ProductCard = ({
@@ -21,6 +23,8 @@ export const ProductCard = ({
   setSelectedProduct,
   setSelectedProductIndex,
   productIdx,
+  productList,
+  setProductList,
 }: IProductCard) => {
   return (
     <div key={product.id} className="space-y-3 rounded-lg border p-3">
@@ -44,6 +48,8 @@ export const ProductCard = ({
         setSelectedProduct={setSelectedProduct}
         setSelectedProductIndex={setSelectedProductIndex}
         productIdx={productIdx}
+        productList={productList}
+        setProductList={setProductList}
       />
     </div>
   );
