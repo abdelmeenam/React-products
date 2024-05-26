@@ -49,10 +49,6 @@ export const EditProductDialog = ({
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      {/* <DialogTrigger asChild>
-        <Button className="flex-1">Edit</Button>
-      </DialogTrigger> */}
-
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle>Edit Product</DialogTitle>

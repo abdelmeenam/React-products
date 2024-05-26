@@ -3,12 +3,14 @@ import { ProductCard } from "./ProductCard";
 import { useState } from "react";
 import { IProduct } from "@/interfaces";
 import { EditProductDialog } from "./dialogs/EditProductDialog";
+import { DestroyProductDialog } from "./dialogs/DestroyProductDialog";
 
 export const ProductCardList = () => {
   const [productList, setProductList] = useState<IProduct[]>(fakeProductList);
   const [selectedproductIndex, setSelectedProductIndex] = useState<number>(-1);
 
   const [open, setOpen] = useState(false);
+  const [openDestroy, setOpenDestroy] = useState(false);
 
   const [selectedproduct, setSelectedProduct] = useState<IProduct>(
     {} as IProduct,
@@ -26,9 +28,11 @@ export const ProductCardList = () => {
               setOpen={setOpen}
               setSelectedProduct={setSelectedProduct}
               setSelectedProductIndex={setSelectedProductIndex}
-              productList = {productList}
-              setProductList = {setProductList}
+              productList={productList}
+              setProductList={setProductList}
               productIdx={idx}
+              openDestroy={openDestroy}
+              setOpenDestroy={setOpenDestroy}
             />
           ))}
 
@@ -40,6 +44,15 @@ export const ProductCardList = () => {
             selectedproductIndex={selectedproductIndex}
             productList={productList}
             setProductList={setProductList}
+          />
+
+          <DestroyProductDialog
+            productList={productList}
+            setProductList={setProductList}
+            productIdx={selectedproductIndex}
+            setOpenDestroy={setOpenDestroy}
+            openDestroy={openDestroy}
+            setSelectedProductIndex={setSelectedProductIndex}
           />
         </div>
       </div>

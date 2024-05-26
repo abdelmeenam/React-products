@@ -10,6 +10,8 @@ interface ProductListActionsProps {
   productIdx: number;
   productList: IProduct[];
   setProductList: (productList: IProduct[]) => void;
+  openDestroy: boolean;
+  setOpenDestroy: (value: boolean) => void;
 }
 
 export const ProductListActions = ({
@@ -19,10 +21,11 @@ export const ProductListActions = ({
   setSelectedProduct,
   setSelectedProductIndex,
   productIdx,
-  productList,
-  setProductList,
+  openDestroy,
+  setOpenDestroy,
 }: ProductListActionsProps) => {
   const onEdit = () => {
+    // To show the dialog, we need to set the selected product
     setSelectedProduct(product);
     setOpen(!open);
     // set the selected product index
@@ -30,13 +33,8 @@ export const ProductListActions = ({
   };
 
   const onDestroy = () => {
-    // remove the product from the list wuth splice
-
-
-    
-    const newProductList = [...productList];
-    newProductList.splice(productIdx, 1);
-    setProductList(newProductList);
+    setSelectedProductIndex(productIdx);
+    setOpenDestroy(!openDestroy);
   };
 
   return (
