@@ -9,6 +9,7 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import { IProduct } from "@/interfaces";
+import { toast } from "../ui/use-toast";
 
 interface IProps {
   productList: IProduct[];
@@ -33,6 +34,13 @@ export const DestroyProductDialog = ({
     setProductList(newProductList);
     setOpenDestroy(false);
     setSelectedProductIndex(-1);
+
+    toast({
+      title: "Product destroyed",
+      description: "Product has been destroyed successfully",
+      duration: 5000,
+      variant: "destructive",
+    });
   };
 
   return (

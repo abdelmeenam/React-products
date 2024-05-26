@@ -4,6 +4,7 @@ import { useState } from "react";
 import { IProduct } from "@/interfaces";
 import { EditProductDialog } from "./dialogs/EditProductDialog";
 import { DestroyProductDialog } from "./dialogs/DestroyProductDialog";
+import { useToast } from "@/components/ui/use-toast";
 
 export const ProductCardList = () => {
   const [productList, setProductList] = useState<IProduct[]>(fakeProductList);
@@ -15,6 +16,8 @@ export const ProductCardList = () => {
   const [selectedproduct, setSelectedProduct] = useState<IProduct>(
     {} as IProduct,
   );
+
+  const { toast } = useToast();
 
   return (
     <>
