@@ -5,6 +5,8 @@ import { IProduct } from "@/interfaces";
 import { EditProductDialog } from "./dialogs/EditProductDialog";
 import { DestroyProductDialog } from "./dialogs/DestroyProductDialog";
 import { useToast } from "@/components/ui/use-toast";
+import { Button } from "./ui/button";
+import { AddProductDialog } from "./dialogs/AddProductDialog";
 
 export const ProductCardList = () => {
   const [productList, setProductList] = useState<IProduct[]>(fakeProductList);
@@ -12,6 +14,7 @@ export const ProductCardList = () => {
 
   const [open, setOpen] = useState(false);
   const [openDestroy, setOpenDestroy] = useState(false);
+  const [openAdd, setOpenAdd] = useState(false);
 
   const [selectedproduct, setSelectedProduct] = useState<IProduct>(
     {} as IProduct,
@@ -21,7 +24,11 @@ export const ProductCardList = () => {
 
   return (
     <>
-      <div className="container ">
+      <div className="mx-5 my-10">
+        <Button className="mb-5" onClick={() => setOpenAdd(!openAdd)}>
+          Add a new
+        </Button>
+
         <div className="grid grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {productList.map((product, idx) => (
             <ProductCard
@@ -38,26 +45,33 @@ export const ProductCardList = () => {
               setOpenDestroy={setOpenDestroy}
             />
           ))}
-
-          <EditProductDialog
-            open={open}
-            setOpen={setOpen}
-            selectedproduct={selectedproduct}
-            setSelectedProduct={setSelectedProduct}
-            selectedproductIndex={selectedproductIndex}
-            productList={productList}
-            setProductList={setProductList}
-          />
-
-          <DestroyProductDialog
-            productList={productList}
-            setProductList={setProductList}
-            productIdx={selectedproductIndex}
-            setOpenDestroy={setOpenDestroy}
-            openDestroy={openDestroy}
-            setSelectedProductIndex={setSelectedProductIndex}
-          />
         </div>
+
+        <EditProductDialog
+          open={open}
+          setOpen={setOpen}
+          selectedproduct={selectedproduct}
+          setSelectedProduct={setSelectedProduct}
+          selectedproductIndex={selectedproductIndex}
+          productList={productList}
+          setProductList={setProductList}
+        />
+
+        <DestroyProductDialog
+          productList={productList}
+          setProductList={setProductList}
+          productIdx={selectedproductIndex}
+          setOpenDestroy={setOpenDestroy}
+          openDestroy={openDestroy}
+          setSelectedProductIndex={setSelectedProductIndex}
+        />
+
+        <AddProductDialog
+          openAdd={openAdd}
+          setOpenAdd={setOpenAdd}
+          productList={productList}
+          setProductList={setProductList}
+        />
       </div>
     </>
   );
