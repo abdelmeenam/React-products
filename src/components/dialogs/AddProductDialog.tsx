@@ -15,10 +15,23 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { Textarea } from "../ui/textarea";
 import { IProduct } from "@/interfaces";
+
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { v4 as uuid } from "uuid";
 
 interface IProps {
   openAdd: boolean;
@@ -27,76 +40,155 @@ interface IProps {
   setProductList: (value: IProduct[]) => void;
 }
 
+const formSchema = z.object({
+  title: z.string().min(5, { message: "Title must be at least 2 characters." }),
+  imageUrl: z.string().url({ message: "Please enter a valid URL." }),
+  price: z.coerce.number().min(1, { message: "Price must be at least 1." }),
+  category: z
+    .string()
+    .min(2, { message: "Category must be at least 2 characters." }),
+  description: z
+    .string()
+    .min(2, { message: "Description must be at least 2 characters." }),
+});
+
 export const AddProductDialog = ({
   openAdd,
   setOpenAdd,
   productList,
   setProductList,
 }: IProps) => {
-  const onSaveChanges = () => {
-    console.log("hello");
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      title: "",
+      imageUrl: "",
+      price: 0,
+      category: "",
+      description: "",
+    },
+  });
+
+  const onSubmit = (data: z.infer<typeof formSchema>) => {
+    // console.log(data);
+    setProductList([...productList, { id: uuid(), ...data }]);
+    setOpenAdd(false);
   };
 
   return (
     <Dialog open={openAdd} onOpenChange={setOpenAdd}>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>Edit Product</DialogTitle>
+          <DialogTitle>Add Product</DialogTitle>
         </DialogHeader>
-        <div className="grid gap-2 py-4 ">
-          <div className="gap-4 space-y-1">
-            <Label htmlFor="name" className="text-right">
-              Tile
-            </Label>
-            <Input id="title" className="col-span-3" name="title" />
-          </div>
 
-          <div className="gap-4 space-y-1">
-            <Label htmlFor="imageUrl" className="text-right">
-              Image Url
-            </Label>
-            <Input id="imageUrl" className="col-span-3" name="imageUrl" />
-          </div>
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)}>
+            <div className="grid gap-2 py-4 ">
+              <div className="gap-4 space-y-1">
+                <FormField
+                  control={form.control}
+                  name="title"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>title</FormLabel>
+                      <FormControl>
+                        <Input placeholder="Product title" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
 
-          <div className="gap-4 space-y-1">
-            <Label htmlFor="price" className="text-right">
-              Price
-            </Label>
-            <Input id="price" className="col-span-3" name="price" />
-          </div>
+              <div className="gap-4 space-y-1">
+                <FormField
+                  control={form.control}
+                  name="imageUrl"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Image URL</FormLabel>
+                      <FormControl>
+                        <Input placeholder="Image URL" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
 
-          <div className="flex-1 gap-4 space-y-1">
-            <Label htmlFor="category" className="text-right">
-              Category
-            </Label>
-            <Select>
-              <SelectTrigger>
-                <SelectValue placeholder="Theme" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="light">Light</SelectItem>
-                <SelectItem value="dark">Dark</SelectItem>
-                <SelectItem value="system">System</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
+              <div className="gap-4 space-y-1">
+                <FormField
+                  control={form.control}
+                  name="price"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Price</FormLabel>
+                      <FormControl>
+                        <Input type="number" placeholder="Price" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
 
-          <div className="gap-4 space-y-1">
-            <Label htmlFor="Description" className="text-right">
-              Description
-            </Label>
-            <Textarea
-              id="Description"
-              className="col-span-3"
-              name="description"
-            />
-          </div>
-        </div>
-        <DialogFooter>
-          <Button type="submit" onClick={onSaveChanges}>
-            Save changes
-          </Button>
-        </DialogFooter>
+              <div className="flex-1 gap-4 space-y-1">
+                <FormField
+                  control={form.control}
+                  name="category"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Category</FormLabel>
+                      <Select
+                        onValueChange={field.onChange}
+                        defaultValue={field.value}
+                      >
+                        <FormControl>
+                          <SelectTrigger>
+                            <SelectValue placeholder="Select a category" />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          <SelectItem value="m@example.com">
+                            m@example.com
+                          </SelectItem>
+                          <SelectItem value="m@google.com">
+                            m@google.com
+                          </SelectItem>
+                          <SelectItem value="m@support.com">
+                            m@support.com
+                          </SelectItem>
+                        </SelectContent>
+                      </Select>
+
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
+
+              <div className="gap-4 space-y-1">
+                <FormField
+                  control={form.control}
+                  name="description"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Description</FormLabel>
+                      <FormControl>
+                        <Textarea placeholder="Description" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
+            </div>
+            <DialogFooter>
+              <Button type="submit">Submit</Button>
+            </DialogFooter>
+          </form>
+        </Form>
       </DialogContent>
     </Dialog>
   );

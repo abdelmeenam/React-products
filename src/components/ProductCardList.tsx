@@ -17,7 +17,7 @@ export const ProductCardList = () => {
   const [openAdd, setOpenAdd] = useState(false);
 
   const [selectedproduct, setSelectedProduct] = useState<IProduct>(
-    {} as IProduct,
+    {} as IProduct
   );
 
   const { toast } = useToast();
