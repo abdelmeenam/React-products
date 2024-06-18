@@ -95,14 +95,14 @@ export const EditProductDialog = ({
               Price
             </Label>
             <Input
-              value={selectedproduct.price}
+              value={selectedproduct.price.toString()}
               id="price"
               className="col-span-3"
               name="price"
               onChange={(e) =>
                 setSelectedProduct({
                   ...selectedproduct,
-                  price: e.target.value,
+                  price: Number(e.target.value),
                 })
               }
             />
