@@ -95,7 +95,7 @@ export const EditProductDialog = ({
               Price
             </Label>
             <Input
-              value={selectedproduct.price.toString()}
+              value={selectedproduct.price}
               id="price"
               className="col-span-3"
               name="price"

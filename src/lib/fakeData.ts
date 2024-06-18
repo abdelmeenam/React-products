@@ -14,6 +14,7 @@ const fakeProductList:IProduct[] = Array.from({ length: PRODUCT_LENGTH }, () => 
   price: +faker.commerce.price(),
   description: faker.commerce.productDescription(),
   category: faker.commerce.department(),
+  colors: [faker.color.human()],
 }));
 
 export default fakeProductList;

@@ -5,5 +5,5 @@ export interface IProduct {
     description: string;
     price: number;
     category: string;
-    color : string[];
+    colors : string[];
     }

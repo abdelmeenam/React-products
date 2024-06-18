@@ -40,8 +40,6 @@ export const ProductCard = ({
       <p className="h-20">{product.description}</p>
       <div>
         <span>🟢</span>
-        <span>🟢</span>
-        <span>🟢</span>
       </div>
       <div className="flex justify-between">
         <span>{product.price}</span>

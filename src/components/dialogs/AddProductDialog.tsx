@@ -71,7 +71,10 @@ export const AddProductDialog = ({
 
   const onSubmit = (data: z.infer<typeof formSchema>) => {
     // console.log(data);
-    setProductList([...productList, { id: uuid(), ...data }]);
+    setProductList([
+      { id: uuid(), colors: ["red", "green", "yellow"], ...data },
+      ...productList,
+    ]);
     setOpenAdd(false);
   };
 
