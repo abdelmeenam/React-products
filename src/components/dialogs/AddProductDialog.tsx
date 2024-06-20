@@ -32,12 +32,15 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { v4 as uuid } from "uuid";
+import ColorCircle from "../ColorCircle";
 
 interface IProps {
   openAdd: boolean;
   setOpenAdd: (value: boolean) => void;
   productList: IProduct[];
   setProductList: (value: IProduct[]) => void;
+  tempSelectedColors: string[];
+  setTempSelectedColors: React.Dispatch<React.SetStateAction<string[]>>;
 }
 
 const formSchema = z.object({
@@ -57,6 +60,8 @@ export const AddProductDialog = ({
   setOpenAdd,
   productList,
   setProductList,
+  tempSelectedColors,
+  setTempSelectedColors,
 }: IProps) => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -72,10 +77,12 @@ export const AddProductDialog = ({
   const onSubmit = (data: z.infer<typeof formSchema>) => {
     // console.log(data);
     setProductList([
-      { id: uuid(), colors: ["red", "green", "yellow"], ...data },
+      { id: uuid(), colors: tempSelectedColors, ...data },
       ...productList,
     ]);
     setOpenAdd(false);
+    form.reset();
+    setTempSelectedColors([]);
   };
 
   return (
@@ -187,6 +194,43 @@ export const AddProductDialog = ({
                 />
               </div>
             </div>
+
+            <div className="flex flex-wrap items-center space-x-2">
+              {tempSelectedColors.length
+                ? tempSelectedColors.map((color, idx) => (
+                    <span
+                      key={idx}
+                      className="inline-block text-xs"
+                      style={{ backgroundColor: color }}
+                    >
+                      {color}
+                    </span>
+                  ))
+                : null}
+            </div>
+
+            <div className="flex flex-row gap-4 space-y-1">
+              <label>Colors</label>
+              <div className="flex items-center space-x-2">
+                {["#ff0000", "#00ff00", "#0000ff"].map((color, idx) => (
+                  <ColorCircle
+                    key={idx}
+                    color={color}
+                    onClick={() => {
+                      if (tempSelectedColors.includes(color)) {
+                        setTempSelectedColors((prev) =>
+                          prev.filter((c) => c !== color),
+                        );
+                        return;
+                      }
+
+                      setTempSelectedColors((prev) => [...prev, color]);
+                    }}
+                  />
+                ))}
+              </div>
+            </div>
+
             <DialogFooter>
               <Button type="submit">Submit</Button>
             </DialogFooter>

@@ -11,6 +11,7 @@ import { AddProductDialog } from "./dialogs/AddProductDialog";
 export const ProductCardList = () => {
   const [productList, setProductList] = useState<IProduct[]>(fakeProductList);
   const [selectedproductIndex, setSelectedProductIndex] = useState<number>(-1);
+  const [tempSelectedColors, setTempSelectedColors] = useState<string[]>([]);
 
   const [open, setOpen] = useState(false);
   const [openDestroy, setOpenDestroy] = useState(false);
@@ -71,6 +72,8 @@ export const ProductCardList = () => {
           setOpenAdd={setOpenAdd}
           productList={productList}
           setProductList={setProductList}
+          tempSelectedColors={tempSelectedColors}
+          setTempSelectedColors={setTempSelectedColors}
         />
       </div>
     </>
