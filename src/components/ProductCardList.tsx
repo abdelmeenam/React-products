@@ -4,7 +4,7 @@ import { useState } from "react";
 import { IProduct } from "@/interfaces";
 import { EditProductDialog } from "./dialogs/EditProductDialog";
 import { DestroyProductDialog } from "./dialogs/DestroyProductDialog";
-import { useToast } from "@/components/ui/use-toast";
+// import { useToast } from "@/components/ui/use-toast";
 import { Button } from "./ui/button";
 import { AddProductDialog } from "./dialogs/AddProductDialog";
 
@@ -21,7 +21,7 @@ export const ProductCardList = () => {
     {} as IProduct,
   );
 
-  const { toast } = useToast();
+  // const { toast } = useToast();
 
   return (
     <>
