@@ -21,7 +21,7 @@ export const ProductCardList = () => {
     {} as IProduct,
   );
 
-  // const { toast } = useToast();
+  // const { toast } = useToast();    //remove this line
 
   return (
     <>
