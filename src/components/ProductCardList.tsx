@@ -56,6 +56,8 @@ export const ProductCardList = () => {
           selectedproductIndex={selectedproductIndex}
           productList={productList}
           setProductList={setProductList}
+          tempSelectedColors={tempSelectedColors}
+          setTempSelectedColors={setTempSelectedColors}
         />
 
         <DestroyProductDialog

@@ -33,6 +33,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { v4 as uuid } from "uuid";
 import ColorCircle from "../ColorCircle";
+import { COLORS } from "@/constants/colors";
 
 interface IProps {
   openAdd: boolean;
@@ -212,7 +213,7 @@ export const AddProductDialog = ({
             <div className="flex flex-row gap-4 space-y-1">
               <label>Colors</label>
               <div className="flex items-center space-x-2">
-                {["#ff0000", "#00ff00", "#0000ff"].map((color, idx) => (
+                {COLORS.map((color, idx) => (
                   <ColorCircle
                     key={idx}
                     color={color}

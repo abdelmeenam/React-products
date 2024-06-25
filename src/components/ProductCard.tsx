@@ -31,7 +31,7 @@ export const ProductCard = ({
   openDestroy,
   setOpenDestroy,
 }: IProductCard) => {
-  const { id, title, description, colors, price } = product;
+  const { id, title, description, colors, price, category } = product;
 
   return (
     <div key={id} className="space-y-3 rounded-lg border p-3">
@@ -48,7 +48,7 @@ export const ProductCard = ({
       </div>
       <div className="flex justify-between">
         <span>{price}</span>
-        <span>Cars</span>
+        <span>{category}</span>
       </div>
       <ProductListActions
         open={open}
